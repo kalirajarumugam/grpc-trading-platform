@@ -4,7 +4,9 @@ import org.example.exceptions.UnknownUserException;
 import org.example.repository.PortfolioItemRepository;
 import org.example.repository.UserRepository;
 import org.example.util.EntityMessageMapper;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserInformationRequestHandler {
 
     private final UserRepository userRepository;

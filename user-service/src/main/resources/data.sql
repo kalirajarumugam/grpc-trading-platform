@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS portfolio_item;
 
 -- intentionally naming this table as customer as "user" has some issues
 CREATE TABLE customer (
-    id int AUTO_INCREMENT primary key,
+    id int primary key,
     name VARCHAR(50),
     balance int
 );
@@ -16,9 +16,9 @@ CREATE TABLE portfolio_item (
     foreign key (customer_id) references customer(id)
 );
 
-insert into customer(name, balance)
+insert into customer(id, name, balance)
     values
-        ('Sam', 10000),
-        ('Mike', 10000),
-        ('John', 10000);
+        (1, 'Sam', 10000),
+        (2, 'Mike', 10000),
+        (3, 'John', 10000);
 
