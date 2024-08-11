@@ -10,7 +10,7 @@ public class PortfolioItem {
     @Id
     @GeneratedValue
     private Integer id;
-    @Column(name = "customer_id)")
+    @Column(name = "customer_id")
     private Integer userId;
     private org.example.common.Ticker ticker;
     private Integer quantity;
