@@ -2,6 +2,8 @@ package org.example.aggregator.controller;
 
 import com.google.common.util.concurrent.Uninterruptibles;
 import org.example.aggregator.service.PriceUpdateListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +18,14 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("stock")
 public class StockController {
 
+    private static final Logger log = LoggerFactory.getLogger(StockController.class);
+
     @Autowired
     private PriceUpdateListener listener;
 
     @GetMapping(value = "updates", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter priceUpdates(){
+        log.info("Price Updates in StockController");
         return listener.createEmitter();
 
        /* SseEmitter emitter = new SseEmitter(50000L);

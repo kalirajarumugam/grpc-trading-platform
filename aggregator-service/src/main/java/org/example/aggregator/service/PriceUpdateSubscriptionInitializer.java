@@ -5,7 +5,9 @@ import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.example.stock.StockServiceGrpc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PriceUpdateSubscriptionInitializer implements CommandLineRunner {
 
     @GrpcClient("stock-service")
