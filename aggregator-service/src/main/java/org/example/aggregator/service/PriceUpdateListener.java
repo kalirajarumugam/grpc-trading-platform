@@ -28,23 +28,27 @@ public class PriceUpdateListener implements StreamObserver<PriceUpdate> {
     }
 
     public SseEmitter createEmitter(){
+        log.info("Emitter is created ");
         var emitter = new SseEmitter(sseTimeout);
         emitters.add(emitter);
         emitter.onTimeout(()->this.emitters.remove(emitter));
         emitter.onError(ex -> this.emitters.remove(emitter));
+        log.info("Emitter is created : " + emitter);
         return emitter;
     }
 
 
     @Override
     public void onNext(PriceUpdate priceUpdate) {
+        log.info("PriceUpdateListener onNext : " + priceUpdate);
         var dto = new PriceUpdateDto(priceUpdate.getTicker().name(), priceUpdate.getPrice());
         this.emitters.removeIf(e -> !this.send(e, dto));
+        log.info("PriceUpdateListener onNext emitters : " + emitters);
     }
 
     @Override
     public void onError(Throwable throwable) {
-        log.error("Streaming Error", throwable);
+        log.error("PriceUpdateListener Streaming Error", throwable);
         emitters.forEach(e -> e.completeWithError(throwable));
         this.emitters.clear();
 
@@ -52,7 +56,9 @@ public class PriceUpdateListener implements StreamObserver<PriceUpdate> {
 
     @Override
     public void onCompleted() {
+        log.info("PriceUpdateListener onCompleted : ");
         this.emitters.forEach(ResponseBodyEmitter::complete);
+        this.emitters.clear();
     }
 
     private boolean send(SseEmitter emitter, Object o){

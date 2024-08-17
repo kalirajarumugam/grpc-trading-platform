@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@DirtiesContext
 @SpringBootTest(properties = {
         "grpc.server.port=-1",
         "grpc.server.in-process-name=integration-test",
